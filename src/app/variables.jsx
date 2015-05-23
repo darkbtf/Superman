@@ -36,7 +36,7 @@ var categories = {
     url: './images/others.png'
   },
   '無理的要求': {
-    icon: 'rocket',
+    icon: 'chain-broken',
     color: 'red',
     colorCode: '#AE1261',
     url: './images/nonsense.png'
