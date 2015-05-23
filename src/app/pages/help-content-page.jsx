@@ -60,7 +60,7 @@ var HelpContent = React.createClass({
 			.then(
 				function(data) {
 					console.log("hcp", data.get('location'));
-					self.refs.navbar.setState({ location: data.get('location') });
+					self.refs.navbar.setState({ location: data.get('location'), contentId: data.id });
 
 					console.log(data.get('time'));
 					self.setState({ title: data.get('title') });
@@ -138,7 +138,7 @@ var HelpContent = React.createClass({
 
     return (
       <AppCanvas>
-        <Navbar title={ this.state.title } leftButton="back" rightButton="edit" ref="navbar" />
+        <Navbar title={ this.state.title } leftButton="back" prev="/help-list" rightButton="edit" ref="navbar" />
         <GetHelpTable ref="table" />
         <div className="custom-button-container">
         	<div className="custom-button-wrapper help">

@@ -12,7 +12,7 @@ var HelperMap = React.createClass({
 
     return (
       <AppCanvas>
-        <Navbar title="市民困難地圖" leftButton="back" />
+        <Navbar title="市民困難地圖" leftButton="back" prev="/help-list" />
         <Map/>
       </AppCanvas>
     );

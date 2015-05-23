@@ -37,9 +37,9 @@ var categories = {
   },
   '無理的要求': {
     icon: 'rocket',
-    color: 'nonsense',
+    color: 'red',
     colorCode: '#AE1261',
-    url: './images/others.png'
+    url: './images/nonsense.png'
   }
 };
 

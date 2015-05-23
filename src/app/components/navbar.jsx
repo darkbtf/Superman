@@ -46,7 +46,11 @@ var Navbar = React.createClass({
     //   console.log("nav", this.state.location._latitude );
       rightButton = (
         <ToolbarGroup key={2} float="right" className="nav-button">
-          <FontIcon className={"fa fa-" + icon } onTouchTap={() => this.transitionTo('/task-map?lat='+this.state.location._latitude+'&lng=' + this.state.location._longitude)
+          <FontIcon className={"fa fa-" + icon } onTouchTap={
+            () => this.transitionTo('/task-map?lat=' + 
+                    this.state.location._latitude + 
+                    '&lng=' + this.state.location._longitude +
+                    '&contentId=' + this.state.contentId)
           }/>
         </ToolbarGroup>
       );
@@ -55,12 +59,13 @@ var Navbar = React.createClass({
     if (this.props.hasOwnProperty('leftButton')) {
 
       var icon = leftButtons[this.props.leftButton];
-
-      leftButton = (
-        <ToolbarGroup key={0} float="left" className="nav-button">
-          <FontIcon className={"fa fa-" + icon } onTouchTap={() => this.transitionTo('/help-list')} />
-        </ToolbarGroup>
-      );
+      if (this.props.leftButton == "back") {
+        leftButton = (
+          <ToolbarGroup key={0} float="left" className="nav-button">
+            <FontIcon className={"fa fa-" + icon } onTouchTap={() => this.transitionTo(this.props.prev)} />
+          </ToolbarGroup>
+        );
+      }
     } else {
       leftButton = (
         <ToolbarGroup key={0} float="left" className="nav-button">
