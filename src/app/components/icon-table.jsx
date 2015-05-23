@@ -8,6 +8,9 @@ var Navigation = require('react-router').Navigation;
 var categories = require('../variables.jsx').categories;
 var Parse = require('parse').Parse;
 
+var CUR_LAT = 25.018553;
+var CUR_LNG = 121.536357;
+
 var IconTable = React.createClass({
 
   mixins: [Navigation],
@@ -31,9 +34,30 @@ var IconTable = React.createClass({
             title: result.get('title'), 
             gender: result.get('gender'),
             reward: result.get('reward'),
-            distance: 0,
+            distance: function(location){
+              var lat = location._latitude;
+              var lng = location._longitude;
+
+              var EARTH_RADIUS = 6378.137; 
+              var PI = Math.PI;
+              var curLat = CUR_LAT;
+              var curLng = CUR_LNG;
+
+              var radLat1 = lat*PI/180.0; 
+              var radLat2 = curLat*PI/180.0; 
+              var a = radLat1 - radLat2; 
+              var b = (lng - curLng)*PI/180.0;
+
+              var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2))); 
+              s = s*EARTH_RADIUS; 
+              s = Math.round(s*10000)/10000.0; 
+              // console.log(s);
+              s = Math.round(s*1000);
+              return s;
+            }(result.get('location')),
             category: result.get('category')
           });
+
         });
         self.forceUpdate();
       }, function(err) {
@@ -64,7 +88,7 @@ var IconTable = React.createClass({
             <div className="help-subtitle">
               <FontIcon className={"fa fa-user " + d.gender} />
               <span className="reward">{d.reward}</span>
-              <span className="distance">{d.distance * 1000}m</span>
+              <span className="distance">{d.distance}m</span>
             </div>
           </div>
         </div>

@@ -84,7 +84,7 @@ var IconTable = React.createClass({
           google.maps.event.addListener(marker,'click', (function(marker, i){
             return function(){
               console.log(i, title[i], category[i], reward[i])
-              var infoWindowContent = "<p>"+title[i]+'<p>'+category[i]+'<\p>'+reward[i];
+              var infoWindowContent = "<p>["+title[i]+']<p>'+category[i]+'<br>'+reward[i];
               // var infoWindowContent = "xDDD"
               console.log(infoWindowContent);
               infoWindow.setContent(infoWindowContent);
