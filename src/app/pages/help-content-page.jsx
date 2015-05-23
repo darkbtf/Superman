@@ -3,6 +3,7 @@ var mui = require('../../../node_modules/material-ui/lib/index');
 
 var GetHelpTable = require('../components/get-help-table.jsx');
 var Navbar = require('../components/navbar.jsx');
+var Direction = require('../components/direction.jsx');
 var { AppBar, AppCanvas, Menu, IconButton } = mui;
 var Parse = require('parse').Parse;
 
@@ -23,6 +24,8 @@ var HelperList = React.createClass({
 		query.get(id)
 			.then(
 				function(data) {
+					self.refs.direction.setState({ location: data.get('location') });
+
 					console.log(data.get('time'));
 					self.setState({ title: data.get('title') });
 					self.refs.table.setState({
@@ -67,6 +70,7 @@ var HelperList = React.createClass({
       <AppCanvas>
         <Navbar title={ this.state.title } leftButton="back" rightButton="edit" />
         <GetHelpTable ref="table" />
+        <Direction ref="direction" />
       </AppCanvas>
     );
   }
