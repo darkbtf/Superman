@@ -6,6 +6,9 @@ var Navbar = require('../components/navbar.jsx');
 var { AppBar, AppCanvas, Menu, IconButton } = mui;
 var Parse = require('parse').Parse;
 
+var CUR_LAT = 25.018553;
+var CUR_LNG = 121.536357;
+
 var HelperList = React.createClass({
 	getInitialState: function() {
 		return {
@@ -28,6 +31,28 @@ var HelperList = React.createClass({
 						time: data.get('time'),
 						peopleRequired: data.get('peopleRequired'),
 						locationPlain: data.get('locationPlain'),
+						distance: function(location){
+							console.log(location._latitude, location._longitude);
+			              	var lat = location._latitude;
+			              	var lng = location._longitude;
+
+			              	var EARTH_RADIUS = 6378.137; 
+			              	var PI = Math.PI;
+			              	var curLat = CUR_LAT;
+			              	var curLng = CUR_LNG;
+
+			              	var radLat1 = lat*PI/180.0; 
+			              	var radLat2 = curLat*PI/180.0; 
+			              	var a = radLat1 - radLat2; 
+			              	var b = (lng - curLng)*PI/180.0;
+
+			              	var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2))); 
+			              	s = s*EARTH_RADIUS; 
+			              	s = Math.round(s*10000)/10000.0; 
+			              	// console.log(s);
+			              	s = Math.round(s*1000);
+			              	return s;
+			            }(data.get('location')),
 						reward: data.get('reward')
 					});
 				},
