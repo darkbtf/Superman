@@ -10,7 +10,7 @@ var Parse = require('parse').Parse;
 var CUR_LAT = 25.018553;
 var CUR_LNG = 121.536357;
 
-var HelperList = React.createClass({
+var HelpContent = React.createClass({
 	getInitialState: function() {
 		return {
 			title: "" 
@@ -24,7 +24,8 @@ var HelperList = React.createClass({
 		query.get(id)
 			.then(
 				function(data) {
-					self.refs.direction.setState({ location: data.get('location') });
+					console.log("hcp", data.get('location'));
+					self.refs.navbar.setState({ location: data.get('location') });
 
 					console.log(data.get('time'));
 					self.setState({ title: data.get('title') });
@@ -68,16 +69,15 @@ var HelperList = React.createClass({
   render: function() {
     return (
       <AppCanvas>
-        <Navbar title={ this.state.title } leftButton="back" rightButton="edit" />
+        <Navbar title={ this.state.title } leftButton="back" rightButton="edit" ref="navbar" />
         <GetHelpTable ref="table" />
-        <Direction ref="direction" />
       </AppCanvas>
     );
   }
   
 });
 
-module.exports = HelperList;
+module.exports = HelpContent;
 
 
 

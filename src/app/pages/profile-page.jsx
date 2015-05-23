@@ -19,4 +19,4 @@ var HelperMap = React.createClass({
   
 });
 
-module.exports = Profile;
+module.exports = HelperMap;

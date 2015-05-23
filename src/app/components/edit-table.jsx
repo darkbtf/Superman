@@ -8,6 +8,7 @@ var DropDownMenu = mui.DropDownMenu;
 var categories = require('../variables.jsx').categories;
 var Parse = require('parse').Parse;
 var itemlist=[];
+
 var EditTable = React.createClass({
   getInitialState: function() {
     item = [];
@@ -26,7 +27,7 @@ var EditTable = React.createClass({
       gender: "female",
       peopleRequired: null,
       reward: "",
-      location: new Parse.GeoPoint(30.0,-20.0),
+      location: new Parse.GeoPoint(25.018553,121.536357),
       locationPlain: "QQ"
     };
   },
@@ -48,12 +49,24 @@ var EditTable = React.createClass({
     var Case = Parse.Object.extend('Case');
     var myCase = new Case();
     for(var key in this.state) myCase.set(key,this.state[key]);
-    myCase.save(null,{
-      success: function(myCase){
-        console.log('save success '+myCase.id);
-      },
-      error:function(myCase,error){
-        console.log('save failed '+error.message);
+    
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode( {
+      'address': myCase.get('locationPlain')
+    },function (results, status) {
+      if(status == google.maps.GeocoderStatus.OK ) {
+        //console.log(results[0].geometry.location);
+        LatLng = results[0].geometry.location;  // (LatLng.lat(), LatLng.lng())
+
+        myCase.set('location', new Parse.GeoPoint(LatLng.lat(), LatLng.lng()) );
+        myCase.save(null, {
+          success: function(myCase) {
+            console.log('save success '+myCase.id);
+          },
+          error:function(myCase,error) {
+            console.log('save failed '+error.message);
+          }
+        });
       }
     });
   },
@@ -100,7 +113,9 @@ var EditTable = React.createClass({
         </div>
         <div className="get-help-location">
           <span className="fa fa-map-marker" />
-          <div className="plain-text">(自動定位 OAO)</div>
+          <TextField
+            onChange={this.handleChange('locationPlain')}
+            hintText="台灣大學" />
         </div>
         <div className="get-help-button">
           <RaisedButton label="Send" primary={true} onClick={this.sendData}/>

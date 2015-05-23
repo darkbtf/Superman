@@ -9,6 +9,8 @@ var Parse = require('parse').Parse;
 
 var map;
 var bounds;
+var CUR_LAT = 25.018553;
+var CUR_LNG = 121.536357;
 
 var IconTable = React.createClass({
 
@@ -21,7 +23,7 @@ var IconTable = React.createClass({
     var myPlace = new google.maps.LatLng(25.018553,121.536357)
 
     var mapOptions = {
-      zoom: 16,
+      zoom: 18,
       center: myPlace,
       mapTypeId: 'roadmap'
     }
@@ -38,6 +40,27 @@ var IconTable = React.createClass({
 
     bounds = new google.maps.LatLngBounds();
   },
+  distance: function(location){
+    var lat = location._latitude;
+    var lng = location._longitude;
+
+    var EARTH_RADIUS = 6378.137; 
+    var PI = Math.PI;
+    var curLat = CUR_LAT;
+    var curLng = CUR_LNG;
+
+    var radLat1 = lat*PI/180.0; 
+    var radLat2 = curLat*PI/180.0; 
+    var a = radLat1 - radLat2; 
+    var b = (lng - curLng)*PI/180.0;
+
+    var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2))); 
+    s = s*EARTH_RADIUS; 
+    s = Math.round(s*10000)/10000.0; 
+    // console.log(s);
+    s = Math.round(s*1000);
+    return s;
+  },
 
   componentDidMount: function() {
 
@@ -47,34 +70,40 @@ var IconTable = React.createClass({
     var self = this;
     var location = [];
     var locationPlain = [];
+    var title = [];
+    var reward = [];
+    var category = [];
+    var dist = [];
 
     query.find()
       .then(function(results) {
-        console.log(results);
         location = results.map(function(result){return result.get('location')});
         locationPlain = results.map(function(result){ return result.get('locationPlain')});
         
         title = results.map(function(result){return result.get('title')});
         reward = results.map(function(result){return result.get('reward')});
         category = results.map(function(result){return result.get('category')});
-
+        dist = location.map(self.distance);
         // var infoWindowContent = title + category + reward;
 
         // Display multiple markers on a map
         var infoWindow = new google.maps.InfoWindow(), marker, i;
 
         for(i = 0; i < location.length; i++){
-          console.log(location[i]._latitude, location[i]._longitude);
+          // console.log(location[i]._latitude, location[i]._longitude);
           var position = new google.maps.LatLng(location[i]._latitude, location[i]._longitude);
           bounds.extend(position);
 
-          console.log("cate", categories[category[i]])
+          if (dist[i] > 1000)
+            continue;
+
+          // console.log("cate", categories[category[i]])
 
           marker = new google.maps.Marker({
             position: position,
             map: map, 
             title: locationPlain[i],
-            zoom: 16,
+            zoom: 18,
             icon: {
               url: categories[category[i]].url
             }
@@ -83,14 +112,12 @@ var IconTable = React.createClass({
           // Allow each marker to have an info window
           google.maps.event.addListener(marker,'click', (function(marker, i){
             return function(){
-<<<<<<< HEAD
-              var infoWindowContent = "<p>"+title[i]+'<p>'+category[i]+'<\p>'+reward[i];
-=======
-              console.log(i, title[i], category[i], reward[i])
-              var infoWindowContent = "<p>["+title[i]+']<p>'+category[i]+'<br>'+reward[i];
+
+              // console.log(i, title[i], category[i], reward[i])
+              var infoWindowContent = "<p>["+category[i]+'] '+title[i]+'<hr>'+reward[i];
               // var infoWindowContent = "xDDD"
-              console.log(infoWindowContent);
->>>>>>> origin/master
+              // console.log(infoWindowContent);
+
               infoWindow.setContent(infoWindowContent);
               infoWindow.open(map, marker);
             }

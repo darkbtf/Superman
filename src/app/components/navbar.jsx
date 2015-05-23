@@ -17,7 +17,8 @@ var Navbar = React.createClass({
 
   getInitialState: function() {
     return {
-      left: ''
+      left: '',
+      location: null
     };
   },
 
@@ -41,6 +42,14 @@ var Navbar = React.createClass({
         </ToolbarGroup>
       );
     }
+    if (this.state.location)
+    //   console.log("nav", this.state.location._latitude );
+      rightButton = (
+        <ToolbarGroup key={2} float="right" className="nav-button">
+          <FontIcon className={"fa fa-" + icon } onTouchTap={() => this.transitionTo('/task-map?lat='+this.state.location._latitude+'&lng=' + this.state.location._longitude)
+          }/>
+        </ToolbarGroup>
+      );
 
     var leftButton;
     if (this.props.hasOwnProperty('leftButton')) {

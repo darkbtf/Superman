@@ -34,26 +34,29 @@ var IconTable = React.createClass({
   },
   calcRoute: function(location){
     if (location == null) return;
+    console.log("dis", this.props.lat, this.props.lng);
     var request = {
       origin: current,
-      destination: new google.maps.LatLng(location._latitude, location._longitude),
+      destination: new google.maps.LatLng(this.props.lat, this.props.lng),
       travelMode: google.maps.TravelMode.WALKING
     };
+    // console.log("pos:", location._latitude, location._longitude);
     directionsService.route(request, function(result, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(result);
-        return 1;
       }
     });
   },
   componentDidMount: function() {
-
+    // console.log(this.props.lat, this.props.lng)
     this.initialize();
-    this.calcRoute(this.state.location);
+    this.calcRoute(new Parse.GeoPoint(this.props.lat, this.props.lng));
+
   },
 
   componentDidUpdate: function() {
     this.calcRoute(this.state.location);
+    // google.maps.event.addDomListener(window, 'load', self.initialize);
   },
 
   render: function() {
