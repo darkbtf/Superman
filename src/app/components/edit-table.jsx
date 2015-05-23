@@ -28,7 +28,7 @@ var EditTable = React.createClass({
       peopleRequired: null,
       reward: "",
       location: new Parse.GeoPoint(25.018553,121.536357),
-      locationPlain: "QQ"
+      locationPlain: "台灣大學"
     };
   },
   handleChange: function(field) {

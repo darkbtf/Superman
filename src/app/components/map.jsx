@@ -89,15 +89,10 @@ var IconTable = React.createClass({
         // Display multiple markers on a map
         var infoWindow = new google.maps.InfoWindow(), marker, i;
 
+        console.log("length", location.length);
         for(i = 0; i < location.length; i++){
           // console.log(location[i]._latitude, location[i]._longitude);
           var position = new google.maps.LatLng(location[i]._latitude, location[i]._longitude);
-          bounds.extend(position);
-
-          if (dist[i] > 1000)
-            continue;
-
-          // console.log("cate", categories[category[i]])
 
           marker = new google.maps.Marker({
             position: position,
@@ -108,6 +103,10 @@ var IconTable = React.createClass({
               url: categories[category[i]].url
             }
           });
+
+          if (dist[i] > 1000)
+            continue;
+          bounds.extend(position);
 
           // Allow each marker to have an info window
           google.maps.event.addListener(marker,'click', (function(marker, i){
@@ -125,7 +124,7 @@ var IconTable = React.createClass({
 
         // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
         var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event){
-          this.setZoom(14);
+          this.setZoom(16);
           google.maps.event.removeListener(boundsListener);
         });
 
