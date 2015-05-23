@@ -27,7 +27,7 @@ var Navbar = React.createClass({
     var menuItems = [
       { route: 'help-list', text: '幫助身旁的人' },
       { route: 'get-help', text: '發送求救訊號' },
-      { type: 'profile', text: '個人資料' },
+      { route: 'profile', text: '個人資料' },
       { route: 'root', text: '登出' },
     ];
 
@@ -36,13 +36,7 @@ var Navbar = React.createClass({
 
       var icon = rightButtons[this.props.rightButton];
 
-      rightButton = (
-        <ToolbarGroup key={2} float="right" className="nav-button">
-          <FontIcon className={"fa fa-" + icon } onTouchTap={() => this.transitionTo('/help-map')}/>
-        </ToolbarGroup>
-      );
-    }
-    if (this.state.location)
+    if (this.state.location) {
     //   console.log("nav", this.state.location._latitude );
       rightButton = (
         <ToolbarGroup key={2} float="right" className="nav-button">
@@ -53,7 +47,14 @@ var Navbar = React.createClass({
                     '&contentId=' + this.state.contentId)
           }/>
         </ToolbarGroup>
-      );
+      ); } else {
+        rightButton = (
+          <ToolbarGroup key={2} float="right" className="nav-button">
+            <FontIcon className={"fa fa-" + icon } onTouchTap={() => this.transitionTo('/help-map')}/>
+          </ToolbarGroup>
+        );
+      }
+    }
 
     var leftButton;
     if (this.props.hasOwnProperty('leftButton')) {

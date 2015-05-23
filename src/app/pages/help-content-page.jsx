@@ -48,7 +48,8 @@ var zeroPad = function(num, places) {
 var HelpContent = React.createClass({
 	getInitialState: function() {
 		return {
-			title: "" 
+			title: "",
+			peopleRequired: 0
 		};
 	},
 	componentDidMount: function() {
@@ -63,7 +64,7 @@ var HelpContent = React.createClass({
 					self.refs.navbar.setState({ location: data.get('location'), contentId: data.id });
 
 					console.log(data.get('time'));
-					self.setState({ title: data.get('title') });
+					self.setState({ title: data.get('title'), peopleRequired: data.get('peopleRequired') });
 					self.refs.table.setState({
 						title: data.get('title'),
 						category: data.get('category'),
@@ -138,12 +139,12 @@ var HelpContent = React.createClass({
 
     return (
       <AppCanvas>
-        <Navbar title={ this.state.title } leftButton="back" prev="/help-list" rightButton="edit" ref="navbar" />
+        <Navbar title={ this.state.title } leftButton="back" prev="/help-list" rightButton="location" ref="navbar" />
         <GetHelpTable ref="table" />
         <div className="custom-button-container">
         	<div className="custom-button-wrapper help">
 	        	<div className="custom-button">
-	        		讓我拯救你
+	        		讓我拯救你 ({this.state.peopleRequired})
 	        	</div>
         	</div>
         	<div className="custom-button-wrapper leave-message">

@@ -7,9 +7,11 @@ var RaisedButton = mui.RaisedButton;
 var DropDownMenu = mui.DropDownMenu;
 var categories = require('../variables.jsx').categories;
 var Parse = require('parse').Parse;
+var Navigation = require('react-router').Navigation;
 var itemlist=[];
 
 var EditTable = React.createClass({
+  mixins: [Navigation],
   getInitialState: function() {
     item = [];
     for(var x in categories) {
@@ -46,8 +48,10 @@ var EditTable = React.createClass({
     this.forceUpdate();
   },
   sendData: function() {
+    var self = this;
     var Case = Parse.Object.extend('Case');
     var myCase = new Case();
+    this.state.time = new Date();
     for(var key in this.state) myCase.set(key,this.state[key]);
     
     var geocoder = new google.maps.Geocoder();
@@ -62,9 +66,11 @@ var EditTable = React.createClass({
         myCase.save(null, {
           success: function(myCase) {
             console.log('save success '+myCase.id);
+            self.transitionTo('/help-list');
           },
           error:function(myCase,error) {
             console.log('save failed '+error.message);
+            alert('error!');
           }
         });
       }
