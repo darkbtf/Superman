@@ -12,12 +12,11 @@ var HelperMap = React.createClass({
 
     return (
       <AppCanvas>
-        <Navbar title="市民困難列表" leftButton="back" />
-        <Map/>
+        <Navbar title="個人資料" rightButton="edit" />
       </AppCanvas>
     );
   }
   
 });
 
-module.exports = HelperMap;
+module.exports = Profile;

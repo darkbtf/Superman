@@ -83,10 +83,7 @@ var IconTable = React.createClass({
           // Allow each marker to have an info window
           google.maps.event.addListener(marker,'click', (function(marker, i){
             return function(){
-              console.log(i, title[i], category[i], reward[i])
               var infoWindowContent = "<p>"+title[i]+'<p>'+category[i]+'<\p>'+reward[i];
-              // var infoWindowContent = "xDDD"
-              console.log(infoWindowContent);
               infoWindow.setContent(infoWindowContent);
               infoWindow.open(map, marker);
             }
@@ -111,7 +108,7 @@ var IconTable = React.createClass({
   render: function() {
     return (
       <div>
-        <div id="map-canvas" style={{ width: "100%", display: 'block', height: '720px'}}></div>
+        <div id="map-canvas" style={{ width: "100%", display: 'block', minHeight: '600px' }}></div>
       </div>
     );
 

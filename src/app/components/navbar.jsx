@@ -26,7 +26,7 @@ var Navbar = React.createClass({
     var menuItems = [
       { route: 'help-list', text: '幫助身旁的人' },
       { route: 'get-help', text: '發送求救訊號' },
-      { type: MenuItem.Types.SUBHEADER, text: '個人資料' },
+      { type: 'profile', text: '個人資料' },
       { route: 'root', text: '登出' },
     ];
 

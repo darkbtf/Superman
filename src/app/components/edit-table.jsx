@@ -78,9 +78,9 @@ var EditTable = React.createClass({
         </div>
         <div className="get-help-time">
           <span className="fa fa-clock-o" />
-          <TextField
-            onChange={this.handleChange('time')}
-            hintText="例如：今天 12:00" />
+            <TextField
+              onChange={this.handleChange('time')}
+              hintText="例如：今天 12:00" />
         </div>
         <div className="get-help-people" >
           <span className="fa fa-group" />
