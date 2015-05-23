@@ -6,7 +6,7 @@ var Map = require('../components/map.jsx');
 var Navbar = require('../components/navbar.jsx');
 var { AppBar, AppCanvas, Menu, IconButton } = mui;
 
-var HelperMap = React.createClass({
+var Profile = React.createClass({
 
   render: function() {
 
