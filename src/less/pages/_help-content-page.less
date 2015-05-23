@@ -1,0 +1,128 @@
+.custom-button-container {
+	height: 75px;
+	width: ~'calc(100% - 30px)';
+	margin: 5px 15px;
+	display: block;
+	.custom-button-wrapper {
+		display: inline-block;
+	}
+	.help {
+		width: 50%;
+		color: @rescue;
+		.custom-button {
+			border-color: @rescue;
+			color: @rescue;
+		}
+		.custom-button:active {
+			color: rgba(255, 255, 255, 1);
+			background-color: @rescue;
+		}
+	}
+	.leave-message {
+		width: 50%;
+		color: @rescue;
+		.custom-button {
+			border-color: @comment;
+			color: @comment;
+		}
+		.custom-button:active {
+			color: rgba(255, 255, 255, 1);
+			background-color: @comment;
+		}
+	}
+}
+.custom-button {
+	margin: 15px 6px;
+	padding: 8px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
+  text-align: center;
+  font-size: 16px;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.custom-button:hover {
+	background-color: #eee;
+	transition: 0.5s;
+}
+
+.custom-button:active {
+	transition: 0.2s;
+}
+
+.comment-container {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	width: 100%;
+	margin: 0;
+	display: block;
+	background-color: @medium-grey;
+	.comment-paper {
+		height: 100%;
+    overflow-x: auto;
+		display: block;
+		margin: 15px 15px;;
+		padding: 12px 20px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		background-color: #fff;
+		.photo {
+			display: inline-block;
+			img {
+				width: 44px;
+			}
+		}
+		.content {
+			float: right;
+			maring: 0px;
+			width: ~'calc(100% - 44px)';
+			display: inline-block;
+			padding-left: 12px;
+			.header-container {
+				width: 100%;
+				height: 30px;
+				.name {
+					float: left;
+					padding: 5px 1px;
+					font-size: 18px;
+				}
+				.tag {
+					float: right;
+					padding: 5px 15px;
+					-webkit-border-radius: 8px;
+					border-radius: 8px;
+					color: @tag;
+				  border-style: solid;
+				  border-color: @tag;
+				  border-width: 3px;
+					text-align: right;
+				}
+			}
+			.replies {
+				.reply {
+					margin: 5px;
+					overflow-x: auto;
+					background-color: @reply;
+					-webkit-border-radius: 10px;
+					border-radius: 10px;
+					.reply-title {
+						display: block;
+						margin: 5px;
+					}
+					.reply-content {
+						display: block;
+						margin: 5px;
+					}
+				}
+			}
+		}
+	}
+	.no-more-comments {
+		color: rgba(255, 255, 255, 1);
+		text-align: center;
+		padding-bottom: 10px;
+	}
+
+}

@@ -21,8 +21,4 @@ var ProfilePage = React.createClass({
   
 });
 
-<<<<<<< HEAD
-module.exports = HelperMap;
-=======
 module.exports = ProfilePage;
->>>>>>> origin/master
