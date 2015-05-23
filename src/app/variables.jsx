@@ -2,13 +2,13 @@ var categories = {
   '運輸': {
     icon: 'motorcycle',
     color: 'crap',
-    colorCode: '#A67522',
+    colorCode: '#AD49AD',
     url: './images/transportation.png'
   },
   '教學': {
     icon: 'book',
     color: 'lavender',
-    colorCode: '#AD49AD',
+    colorCode: '#89AD1A',
     url: './images/teaching.png'
   },
   '科技': {
@@ -20,19 +20,19 @@ var categories = {
   '餐點': {
     icon: 'coffee',
     color: 'crimson',
-    colorCode: '#DB3333',
+    colorCode: '#F5E72E',
     url: './images/food.png'
   },
   '修理': {
     icon: 'wrench',
     color: 'grass',
-    colorCode: '#89AD1A',
+    colorCode: '#A67522',
     url: './images/repairment.png'
   },
   '其他': {
     icon: 'rocket',
     color: 'iron',
-    colorCode: '#8d8d8d',
+    colorCode: '#8D8D8D',
     url: './images/others.png'
   },
   '無理的要求': {
