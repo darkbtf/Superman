@@ -49,8 +49,8 @@ var GetHelpTable = React.createClass({
           <span className="fa fa-gift" />
           <div className="plain-text">{ this.state.reward }</div>
         </div>
-        <div className="get-help-dicstance" >
-          <span className="fa fa-dist" />
+        <div className="get-help-distance" >
+          <span className="fa fa-road" />
           <div className="plain-text">{ this.state.distance } m</div>
         </div>
         <div className="get-help-location">
