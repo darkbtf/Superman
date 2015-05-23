@@ -112,12 +112,8 @@ var IconTable = React.createClass({
           // Allow each marker to have an info window
           google.maps.event.addListener(marker,'click', (function(marker, i){
             return function(){
-
-              // console.log(i, title[i], category[i], reward[i])
               var infoWindowContent = "<p>["+category[i]+'] '+title[i]+'<hr>'+reward[i];
               // var infoWindowContent = "xDDD"
-              // console.log(infoWindowContent);
-
               infoWindow.setContent(infoWindowContent);
               infoWindow.open(map, marker);
             }
