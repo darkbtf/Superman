@@ -124,7 +124,7 @@ var EditTable = React.createClass({
             hintText="台灣大學" />
         </div>
         <div className="get-help-button">
-          <RaisedButton label="Send" primary={true} onClick={this.sendData}/>
+          <RaisedButton label="救命啊！" primary={true} onClick={this.sendData}/>
         </div>
       </div>
     );

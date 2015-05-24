@@ -144,7 +144,7 @@ var HelpContent = React.createClass({
         <div className="custom-button-container">
         	<div className="custom-button-wrapper help">
 	        	<div className="custom-button">
-	        		讓我拯救你 ({this.state.peopleRequired})
+	        		讓我拯救你
 	        	</div>
         	</div>
         	<div className="custom-button-wrapper leave-message">

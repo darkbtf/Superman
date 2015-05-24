@@ -70,21 +70,9 @@ var Profile = React.createClass({
   render: function() {
     var self = this;
 		var my_rank =3.5;
-    var my_heart = (function(number){
-			var type=[];
-			var integer = parseInt(number);
-			for(var i=1;i<=integer;i++) type.push('full');
-			if(integer < number) type.push('half');
-        else type.push('empty');
-			for(var i=1;i<=4-integer;i++) type.push('empty');
-			return type.map(function(a){
-				return (<img src={'./images/big_'+a+'_heart.png'} />);
-			});
-		}(my_rank));
-		
 		var caseItems = this.state.caseData.map(function(d, index){
 			var heart = function(number){
-        if (!number) return null;
+        if (number == undefined) return null;
 				var type=[];
 				var integer = parseInt(number);
 				for(var i=1;i<=integer;i++) type.push('full');
@@ -110,6 +98,8 @@ var Profile = React.createClass({
           <div className="custom-button">給評價</div>
         </div>
       );
+
+     
 			return (
         <div className="item-table" style={{ width: '100%' }} onClick={self.handleRate(index)}>
           <div className={"help-category fa fa-" + categories[d.category].icon + " " + categories[d.category].color } />
@@ -130,7 +120,19 @@ var Profile = React.createClass({
         </div>
       );
     });
-    
+     var my_heart = (function(number){
+        var type=[];
+        var integer = parseInt(number);
+        for(var i=1;i<=integer;i++) type.push('full');
+        if (integer < 5) {
+          if(integer < number) type.push('half');
+          else type.push('empty');
+        }
+        for(var i=1;i<=4-integer;i++) type.push('empty');
+        return type.map(function(a){
+          return (<img src={'./images/big_'+a+'_heart.png'} />);
+        });
+      }(my_rank));
     return (
       <div>
 				<div className="profile-header">
@@ -148,7 +150,7 @@ var Profile = React.createClass({
             以往紀錄
           </div>
           <div className="profile-rating-hearts">
-            {my_heart}
+            { my_heart }
           </div>
         </div>
 				<div>
