@@ -59,6 +59,14 @@ var Profile = React.createClass({
       }, function(err) {
       });
   },
+  handleRate: function(index) {
+    var self = this;
+    return function() {
+      var tmp = self.state.caseData[index].rank;
+      self.state.caseData[index].rank = (tmp != undefined) ? Math.min(5, tmp + 1): 0;
+      self.forceUpdate();
+    };
+  },
   render: function() {
     var self = this;
 		var my_rank =3.5;
@@ -67,22 +75,28 @@ var Profile = React.createClass({
 			var integer = parseInt(number);
 			for(var i=1;i<=integer;i++) type.push('full');
 			if(integer < number) type.push('half');
-			else type.push('empty');
+        else type.push('empty');
 			for(var i=1;i<=4-integer;i++) type.push('empty');
 			return type.map(function(a){
 				return (<img src={'./images/big_'+a+'_heart.png'} />);
 			});
 		}(my_rank));
 		
-		var caseItems = this.state.caseData.map(function(d){
+		var caseItems = this.state.caseData.map(function(d, index){
 			var heart = function(number){
+        if (!number) return null;
 				var type=[];
 				var integer = parseInt(number);
 				for(var i=1;i<=integer;i++) type.push('full');
-				if(integer < number) type.push('half');
-				else type.push('empty');
-				for(var i=1;i<=4-integer;i++) type.push('empty');
-				return type.map(function(a){
+				if (integer < 5) {
+          if(integer < number) type.push('half');
+          else type.push('empty');
+        }
+				for(var i=1;i<=4-integer;i++) {
+          console.log(integer);
+          type.push('empty');
+				}
+        return type.map(function(a){
 					return (<img src={'./images/'+a+'_heart.png'}/>);
 				});
 			}(d.rank);
@@ -91,33 +105,52 @@ var Profile = React.createClass({
 			var year = date.getFullYear();
 			var month = date.getMonth()+1;
 			var day = date.getDate();
+      var rateButton = (
+        <div className="rate-button">
+          <div className="custom-button">給評價</div>
+        </div>
+      );
 			return (
-        <div className="item-table">
+        <div className="item-table" style={{ width: '100%' }} onClick={self.handleRate(index)}>
           <div className={"help-category fa fa-" + categories[d.category].icon + " " + categories[d.category].color } />
-          <div className="help-content" >
-            <div className="help-title">{d.title}</div>
-            <div className="help-subtitle">
-              <FontIcon className={"fa fa-user " + d.gender} />
-              <span className="reward">{d.reward}</span>
-              <span className="distance">{d.distance}m</span>
+          <div className="help-content" style={{ width: 'calc(100%-60px)', height: '100%', overflow: 'none'}}>
+            <div style={{ width: 'calc(100%-110px)', float: 'left'}}>
+              <div className="help-title" style={{ width: '100%' }}>{d.title}</div>
+              <div className="help-subtitle">
+                <FontIcon className={"fa fa-user " + d.gender} />
+                <span className="reward">{d.reward}</span>
+                <span className="distance">{d.distance}m</span>
+              </div>
             </div>
-						<div>
-							{heart}
-							<span>{year+'/'+month+'/'+day}</span>
-						</div>
-          </div>
+            <div style={{float: 'right', display: 'inline-block', height: '100%', paddingRight: '0px', marginRight: '-10px', width: '100px'}}>
+              { heart || rateButton }
+              <div style={{margin: '0', padding:'0'}}> {year+'/'+month+'/'+day} </div>
+            </div>
+          </div>  
         </div>
       );
     });
     
     return (
       <div>
-				<div>
-					<img src='./images/bitmap.png'/>朱蝴蝶
+				<div className="profile-header">
+          <div className="profile-photo">
+					  <img src='./images/bitmap.png'/>
+          </div>
+          <div className="profile-name">
+            朱蝴蝶
+          </div>
 				</div>
 				<div>
 				</div>
-				<div>以往紀錄 {my_heart}</div>
+				<div className="profile-rating">
+          <div className="profile-rating-text">
+            以往紀錄
+          </div>
+          <div className="profile-rating-hearts">
+            {my_heart}
+          </div>
+        </div>
 				<div>
         	{caseItems}
 				</div>
