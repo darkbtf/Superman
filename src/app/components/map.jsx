@@ -86,33 +86,33 @@ var IconTable = React.createClass({
         dist = location.map(self.distance);
         // var infoWindowContent = title + category + reward;
 
+        
+        var markers = [];
+        for(var i = 0; i < location.length; i++){
+          var lat = location[i]._latitude;
+          var lng = location[i]._longitude;
+          markers.push([title[i], lat, lng, reward[i], category[i], dist[i]]);
+        }
+
         // Display multiple markers on a map
         var infoWindow = new google.maps.InfoWindow(), marker, i;
 
-        console.log("length", location.length);
-        for(i = 0; i < location.length; i++){
-          // console.log(location[i]._latitude, location[i]._longitude);
-          var position = new google.maps.LatLng(location[i]._latitude, location[i]._longitude);
-
+        for(var i = 0; i < markers.length; i++){
+          var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+          if (markers[i][5] > 1000)
+            continue;
+          bounds.extend(position);
           marker = new google.maps.Marker({
             position: position,
             map: map, 
-            title: locationPlain[i],
-            zoom: 18,
-            icon: {
-              url: categories[category[i]].url
-            }
+            title: markers[i][0],
+            icon: { url: categories[markers[i][4]].url }
           });
-
-          if (dist[i] > 1000)
-            continue;
-          bounds.extend(position);
 
           // Allow each marker to have an info window
           google.maps.event.addListener(marker,'click', (function(marker, i){
             return function(){
-              var infoWindowContent = "<p>["+category[i]+'] '+title[i]+'<hr>'+reward[i];
-              // var infoWindowContent = "xDDD"
+              var infoWindowContent = "<p>["+markers[i][4]+'] '+markers[i][0]+'<hr>'+markers[i][3];
               infoWindow.setContent(infoWindowContent);
               infoWindow.open(map, marker);
             }
@@ -124,7 +124,7 @@ var IconTable = React.createClass({
 
         // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
         var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event){
-          this.setZoom(16);
+          this.setZoom(15);
           google.maps.event.removeListener(boundsListener);
         });
 
