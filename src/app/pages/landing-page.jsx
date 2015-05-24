@@ -26,12 +26,12 @@ var Landing = React.createClass({
     console.log('mount');
     var self = this;
     var counter = setInterval(function() {
-      self.setState({citizen: self.state.citizen + 1});
-      if (self.state.citizen == 650) {
+      self.setState({citizen: self.state.citizen + 3});
+      if (self.state.citizen > 650) {
         clearInterval(counter);
         counter = setInterval(function() {
-          self.setState({citizen: self.state.citizen + 1});
-          if (self.state.citizen == 685) {
+          self.setState({citizen: self.state.citizen + 2});
+          if (self.state.citizen > 685) {
             clearInterval(counter);
             counter = setInterval(function() {
               self.setState({citizen: self.state.citizen + 1});
