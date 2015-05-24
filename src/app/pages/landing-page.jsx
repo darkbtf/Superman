@@ -13,6 +13,7 @@ var Landing = React.createClass({
     };
   },
   shine: function(count) {
+    if (count == 0) return;
     var self = this;
     self.refs.circle.getDOMNode().classList.add('shine');
     var shiner = setTimeout(function() {
